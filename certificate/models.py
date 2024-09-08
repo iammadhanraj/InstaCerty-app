@@ -23,10 +23,3 @@ class Certificate(models.Model):
         
         super().save(*args, **kwargs)
         
-        # Generate QR code
-        # qr_image = qrcode.make(f"Certificate: {self.certificate_number}\nName: {self.name}\nCourse: {self.course}")
-        # buffer = BytesIO()
-        # qr_image.save(buffer, format="PNG")
-        # self.qr_code.save(f'instacerty_{self.certificate_number}.png', File(buffer), save=False)
-
-        # super().save(*args, **kwargs)
