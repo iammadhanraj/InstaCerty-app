@@ -1,0 +1,11 @@
+<h2>Generate Certificate</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <label for="format">Choose Format:</label>
+    <select name="format" id="format">
+        <option value="pdf">PDF</option>
+        <option value="png">PNG</option>
+    </select>
+    <button type="submit">Generate Certificate</button>
+</form>
