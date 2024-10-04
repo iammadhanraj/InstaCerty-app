@@ -1,16 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InstaCerty</title>
-</head>
-<body>
-    <h2>Generate Certificate</h2>
-<form method="post" action="{% url 'generate_certificate' %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" name="action" value="generate">Generate Certificate</button>
-</form>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}Generate Certificate{% endblock %}
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6">
+        <!-- Display messages like form validation errors or success messages -->
+        {% if messages %}
+        <div class="alert alert-info">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+        {% endif %}
+        
+        <div class="card">
+            <div class="card-header">
+                <h2 class="text-center">Generate Certificate</h2>
+              </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row mb-3">
+                      <label for="id_name" class="col-sm-2 col-form-label">Name</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" name="name" maxlength="100" required="" id="id_name">
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="id_course" class="col-sm-2 col-form-label">Course</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" name="course" maxlength="100" required="" id="id_course">
+                        </div>
+                      </div>
+                    <div class="row mb-3">
+                        <label for="id_instructor" class="col-sm-2 col-form-label">Instructor</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="instructor" maxlength="100" required="" id="id_instructor">
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary btn-lg">Generate Certificate</button>
+                    </div>
+                  </form>
+            </div>
+            </div>
+        </div> 
+</div>
+{% endblock %}
+

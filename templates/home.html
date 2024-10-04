@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}InstaCerty! Generate Certificates{% endblock %}
+{% block content %}
+<div class="row">
+    {% for certificate in certificates %}
+    <div class="col-sm-6">
+      <div class="card m-2">
+        <div class="card-body">
+          <h4 class="card-title">Certificate Number : {{ certificate.certificate_number }}</h4>
+          <p class="card-text">Certificate for <strong>{{ certificate.name }}</strong></p>
+          <p class="card-text">Course: <strong>{{ certificate.course }}</strong></p>
+          <p class="card-text">Instructor: <strong>{{ certificate.instructor }}</strong></p>
+          <!-- Download Button -->
+          <a href="{% url 'download_pdf' certificate.id %}" class="btn btn-primary btn-lg">Download!</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+{% endblock %}
+</body>
+</html>
