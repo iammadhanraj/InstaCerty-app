@@ -10,8 +10,12 @@
           <p class="card-text">Certificate for <strong>{{ certificate.name }}</strong></p>
           <p class="card-text">Course: <strong>{{ certificate.course }}</strong></p>
           <p class="card-text">Instructor: <strong>{{ certificate.instructor }}</strong></p>
+          <p class="card-text">Issued At: <strong>{{ certificate.issue_date }}</strong></p>
           <!-- Download Button -->
-          <a href="{% url 'download_pdf' certificate.id %}" class="btn btn-primary btn-lg">Download!</a>
+          <a href="{% url 'download_pdf' certificate.id %}" class="btn btn-primary">Download!</a>
+          <a href="{% url 'delete_certificate' certificate.id %}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this certificate?');">
+            Delete
+        </a>
         </div>
       </div>
     </div>

@@ -34,10 +34,32 @@
 
     <!-- Main Content -->
     <div class="container mt-5">
+        <div>
+            {% if messages %}
+            <div id="message-container">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
         {% block content %}
         <!-- Content goes here -->
         {% endblock %}
     </div>
+
+    <!-- JavaScript to make the message disappear after 5 seconds -->
+    <script>
+        setTimeout(function() {
+            let messageContainer = document.getElementById('message-container');
+            if (messageContainer) {
+                messageContainer.style.display = 'none';
+            }
+        }, 5000);  // 5000ms = 5 seconds
+    </script>
 
     <!-- Bootstrap JS and Popper -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>

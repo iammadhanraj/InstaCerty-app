@@ -1,4 +1,5 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
+from django.contrib import messages
 from .forms import*
 from reportlab.lib.pagesizes import A4, landscape
 from reportlab.pdfgen import canvas
@@ -8,7 +9,6 @@ from django.core.files import File
 from .models import Certificate
 import qrcode
 import tempfile
-from PyPDF2 import PdfReader, PdfWriter
 import os
 
 def home(request):
@@ -103,7 +103,7 @@ def generate_certificate(request):
             # Serve the PDF for download
             response = HttpResponse(pdf_buffer, content_type='application/pdf')
             response['Content-Disposition'] = f'attachment; filename="{certificate.certificate_number}.pdf"'
-
+            messages.success(request, 'Certificate generated successfully!')
             return redirect('home')
         
         else:
@@ -128,6 +128,30 @@ def view_pdf(request, certificate_id):
         response['Content-Disposition'] = f'inline; filename="{certificate.certificate_number}.pdf"'
         return response
 
+
+#Delete Certificate
+def delete_certificate(request, id):
+    certificate = get_object_or_404(Certificate, id=id)
+
+    # Paths to the certificate files
+    pdf_path = certificate.pdf_file.path if certificate.pdf_file else None
+    qr_path = certificate.qr_code.path if certificate.qr_code else None
+
+    # Delete the certificate record from the database
+    certificate.delete()
+
+    # Remove the PDF and PNG files from the filesystem
+    if pdf_path and os.path.exists(pdf_path):
+        os.remove(pdf_path)
+    if qr_path and os.path.exists(qr_path):
+        os.remove(qr_path)
+
+    # Add a success message
+    messages.success(request, 'Certificate deleted successfully!')
+
+    # Redirect back to the certificate list or another page
+    return redirect('home')
+
 # Download PDF
 def download_pdf(request, certificate_id):
     try:
@@ -139,5 +163,7 @@ def download_pdf(request, certificate_id):
     with open(pdf_file_path, 'rb') as pdf_file:
         response = HttpResponse(pdf_file.read(), content_type='application/pdf')
         response['Content-Disposition'] = f'attachment; filename="{certificate.certificate_number}.pdf"'
+        # messages.success(request, 'Certificate downloaded successfully!')
         return response
+        
 
