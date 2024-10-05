@@ -31,7 +31,9 @@ A Django-based web application that generates certificates in PDF formats, with 
 - **Bootstrap Integration:** The app uses Bootstrap for responsive design, including a clean and intuitive form interface.
 ### 6. Date Formatting
 - The application formats dates in the day-month-year format for consistency on certificates.
-
+### 7. Success Messages System
+- We can see success message after generate/delete the certificates.
+  
 ## Getting Started
 ### Prerequisites
 - Python 3.x
