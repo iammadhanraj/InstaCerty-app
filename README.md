@@ -47,7 +47,7 @@ A Django-based web application that generates certificates in PDF formats, with 
 1.Clone the repository:
 
 ```bash
-https://github.com/iammadhanraj/InstaCerty.git
+https://github.com/iammadhanraj/InstaCerty-app
 ```
 2.Navigate to the project directory:
 ```bash
